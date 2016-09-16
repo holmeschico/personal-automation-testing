@@ -1,0 +1,2493 @@
+{
+	"variables": [],
+	"info": {
+		"name": "personalTesting",
+		"_postman_id": "b5d0a2d5-0b37-b678-5026-fb45f208d035",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "alertSvcs Error",
+			"description": "",
+			"item": [
+				{
+					"name": "200 - api/oauth/token - local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "QA+znd10@zonoff.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Testing123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - serviceContext local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/serviceContext",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"name": "serviceContextForUser",
+							"originalRequest": {
+								"url": "http://localhost:8082/serviceContext",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"enabled": true,
+										"description": "The mime type of this content"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{access_token}}",
+										"enabled": true
+									},
+									{
+										"key": "z-tx-id",
+										"value": "1234567890",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"name": "Cache-Control",
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"name": "Content-Encoding",
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"description": "The type of encoding used on the data."
+								},
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Thu, 08 Sep 2016 19:58:35 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Expires",
+									"key": "Expires",
+									"value": "0",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"name": "Pragma",
+									"key": "Pragma",
+									"value": "no-cache",
+									"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)",
+									"description": "A name for the server"
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"name": "Vary",
+									"key": "Vary",
+									"value": "Accept-Encoding, User-Agent",
+									"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+								},
+								{
+									"name": "X-Application-Context",
+									"key": "X-Application-Context",
+									"value": "account-services:test-api:8082",
+									"description": "Custom header"
+								},
+								{
+									"name": "X-Content-Type-Options",
+									"key": "X-Content-Type-Options",
+									"value": "nosniff",
+									"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+								},
+								{
+									"name": "X-Frame-Options",
+									"key": "X-Frame-Options",
+									"value": "DENY",
+									"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+								},
+								{
+									"name": "X-XSS-Protection",
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block",
+									"description": "Cross-site scripting (XSS) filter"
+								}
+							],
+							"cookie": [],
+							"responseTime": 291,
+							"body": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}"
+						}
+					]
+				},
+				{
+					"name": "GET - filteredAccounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/accounts/c88c0816-f3ad-4409-8088-d032bbdd6945/filteredusers?active=true&locked=false&verified=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "connectionsController",
+			"description": "",
+			"item": [
+				{
+					"name": "200 - api/oauth/token - local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "QA+znd10@zonoff.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Testing123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - serviceContext local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/serviceContext",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"name": "serviceContextForUser",
+							"originalRequest": {
+								"url": "http://localhost:8082/serviceContext",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"enabled": true,
+										"description": "The mime type of this content"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{access_token}}",
+										"enabled": true
+									},
+									{
+										"key": "z-tx-id",
+										"value": "1234567890",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"name": "Cache-Control",
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"name": "Content-Encoding",
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"description": "The type of encoding used on the data."
+								},
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Thu, 08 Sep 2016 19:58:35 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Expires",
+									"key": "Expires",
+									"value": "0",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"name": "Pragma",
+									"key": "Pragma",
+									"value": "no-cache",
+									"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)",
+									"description": "A name for the server"
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"name": "Vary",
+									"key": "Vary",
+									"value": "Accept-Encoding, User-Agent",
+									"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+								},
+								{
+									"name": "X-Application-Context",
+									"key": "X-Application-Context",
+									"value": "account-services:test-api:8082",
+									"description": "Custom header"
+								},
+								{
+									"name": "X-Content-Type-Options",
+									"key": "X-Content-Type-Options",
+									"value": "nosniff",
+									"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+								},
+								{
+									"name": "X-Frame-Options",
+									"key": "X-Frame-Options",
+									"value": "DENY",
+									"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+								},
+								{
+									"name": "X-XSS-Protection",
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block",
+									"description": "Cross-site scripting (XSS) filter"
+								}
+							],
+							"cookie": [],
+							"responseTime": 291,
+							"body": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}"
+						}
+					]
+				},
+				{
+					"name": "POST - connections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8094/connections",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "accountId",
+									"value": "c88c0816-f3ad-4409-8088-d032bbdd6945",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "createUser",
+			"description": "",
+			"item": [
+				{
+					"name": "user/register znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\",\"firstName\":\"will\",\"lastName\":\"skariah\",\"password\":\"Zonoff123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "200 - api/oauth/token - znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/v1/api/delta/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{emailaddress}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{user_password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user/register localOnly copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\",\"firstName\":\"will\",\"lastName\":\"skariah\",\"password\":\"Zonoff123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "forgotPassword localOnly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/forgotPassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "notifyCbsTest localOnly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/forgotPassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user/register znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\",\"firstName\":\"will\",\"lastName\":\"skariah\",\"password\":\"Zonoff123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "local Only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\n\n    tests[\"access_token is in the response body\"] = responseBody.has(\"access_token\");\n    tests[\"expires_in is in the response body\"] = responseBody.has(\"expires_in\");\n    tests[\"token_type is in the response body\"] = responseBody.has(\"bearer\");\n    tests[\"scope is in the response body\"] = responseBody.has(\"scope\");\n    \ntests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);\n\n"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/accounts/c88c0816-f3ad-4409-8088-d032bbdd6945/filteredusers?active=true&locked=false&verified=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "null",
+								"description": ""
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{Deltaemailaddress}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Zonoff123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Delta"
+					},
+					"response": []
+				},
+				{
+					"name": "createUserRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"status code is 200\"] = responseCode.code === 200;\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var asset_uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g\n    , function(c) {\n        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);\n        return v.toString(16);\n    });\npostman.setEnvironmentVariable(\"asset_uuid\", asset_uuid)"
+							}
+						}
+					],
+					"request": {
+						"url": "{{dbs_protocol}}{{dbs_host}}{{dbs_port}}/accounts/{{account_uuid}}/assets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"{{user_uuid}}\",\"pgmId\":\"{{program_uuid}}\",\"perms\":[],\"accounts\":[{\"uuid\":\"{{account_uuid}}\",\"perms\":[\"account-master:reassign:my-account\",\"account-user.role:update:my-account\",\"asset:register:my-account\",\"account-user:add:my-account\"]}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1fb09368-eab8-4ecb-be28-1a7d44923eb4",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Dan\",\n    \"lastName\": \"Pfeffer\",\n    \"email\": \"Dan\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "200 - api/oauth/token -qa copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{emailaddress}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{user_password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deviceCatalogTeting znd",
+			"description": "",
+			"item": [
+				{
+					"name": "user/register znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\",\"firstName\":\"will\",\"lastName\":\"skariah\",\"password\":\"Zonoff123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "200 - api/oauth/token - znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{emailaddress_forUserCreation}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Zonoff123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Get device categories znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/devicecatalog/categories",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\": \"15ad2038-a215-436b-a285-2351c5e5fc85\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\": [\"AUTHENTICATE\"],\"accounts\":[{\"uuid\":\"{{DeltaaccountUuid}}\"}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Get device manufacturers znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/devicecatalog/manufacturers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\": \"d2503c8a-1017-417f-a55f-0aaaa8f73b1a\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\": [\"AUTHENTICATE\"],\"accounts\":[{\"uuid\":\"{{DeltaaccountUuid}}\"}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Get  devices/{deviceUuid} znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/devicecatalog/devices/50cce3fd-a466-4895-9859-c9c154c7feaa",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\": \"d2503c8a-1017-417f-a55f-0aaaa8f73b1a\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\": [\"AUTHENTICATE\"],\"accounts\":[{\"uuid\":\"{{DeltaaccountUuid}}\"}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user/register localOnly copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\",\"firstName\":\"will\",\"lastName\":\"skariah\",\"password\":\"Zonoff123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "forgotPassword localOnly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/forgotPassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "notifyCbsTest localOnly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/forgotPassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user/register znd",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "https://znd-api-us.zonoff.io/api/v1/delta/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{emailaddress_forUserCreation}}\",\"firstName\":\"will\",\"lastName\":\"skariah\",\"password\":\"Zonoff123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "local Only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\n\n    tests[\"access_token is in the response body\"] = responseBody.has(\"access_token\");\n    tests[\"expires_in is in the response body\"] = responseBody.has(\"expires_in\");\n    tests[\"token_type is in the response body\"] = responseBody.has(\"bearer\");\n    tests[\"scope is in the response body\"] = responseBody.has(\"scope\");\n    \ntests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);\n\n"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/accounts/c88c0816-f3ad-4409-8088-d032bbdd6945/filteredusers?active=true&locked=false&verified=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "null",
+								"description": ""
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{Deltaemailaddress}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Zonoff123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Delta"
+					},
+					"response": []
+				},
+				{
+					"name": "createUserRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"status code is 200\"] = responseCode.code === 200;\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var asset_uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g\n    , function(c) {\n        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);\n        return v.toString(16);\n    });\npostman.setEnvironmentVariable(\"asset_uuid\", asset_uuid)"
+							}
+						}
+					],
+					"request": {
+						"url": "{{dbs_protocol}}{{dbs_host}}{{dbs_port}}/accounts/{{account_uuid}}/assets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"{{user_uuid}}\",\"pgmId\":\"{{program_uuid}}\",\"perms\":[],\"accounts\":[{\"uuid\":\"{{account_uuid}}\",\"perms\":[\"account-master:reassign:my-account\",\"account-user.role:update:my-account\",\"asset:register:my-account\",\"account-user:add:my-account\"]}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1fb09368-eab8-4ecb-be28-1a7d44923eb4",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Dan\",\n    \"lastName\": \"Pfeffer\",\n    \"email\": \"Dan\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "200 - api/oauth/token -qa copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{emailaddress}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{user_password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "200 - api/oauth/token -qa",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}{{server}}{{port}}{{apiroot}}{{dltasvcs_context}}/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{emailaddress}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{user_password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deviceCatalog]\\",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "removeAccountManually",
+			"description": "",
+			"item": [
+				{
+					"name": "200 - api/oauth/token - local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "QA+znd10@zonoff.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Testing123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - serviceContext local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://prd-b-acctsvcs-use1.zonoff.com:443/serviceContext",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"name": "serviceContextForUser",
+							"originalRequest": {
+								"url": "http://localhost:8082/serviceContext",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"enabled": true,
+										"description": "The mime type of this content"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{access_token}}",
+										"enabled": true
+									},
+									{
+										"key": "z-tx-id",
+										"value": "1234567890",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"name": "Cache-Control",
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"name": "Content-Encoding",
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"description": "The type of encoding used on the data."
+								},
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Thu, 08 Sep 2016 19:58:35 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Expires",
+									"key": "Expires",
+									"value": "0",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"name": "Pragma",
+									"key": "Pragma",
+									"value": "no-cache",
+									"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)",
+									"description": "A name for the server"
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"name": "Vary",
+									"key": "Vary",
+									"value": "Accept-Encoding, User-Agent",
+									"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+								},
+								{
+									"name": "X-Application-Context",
+									"key": "X-Application-Context",
+									"value": "account-services:test-api:8082",
+									"description": "Custom header"
+								},
+								{
+									"name": "X-Content-Type-Options",
+									"key": "X-Content-Type-Options",
+									"value": "nosniff",
+									"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+								},
+								{
+									"name": "X-Frame-Options",
+									"key": "X-Frame-Options",
+									"value": "DENY",
+									"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+								},
+								{
+									"name": "X-XSS-Protection",
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block",
+									"description": "Cross-site scripting (XSS) filter"
+								}
+							],
+							"cookie": [],
+							"responseTime": 291,
+							"body": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}"
+						}
+					]
+				},
+				{
+					"name": "GET - serviceContext DBS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/serviceContext",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"name": "serviceContextForUser",
+							"originalRequest": {
+								"url": "http://localhost:8082/serviceContext",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"enabled": true,
+										"description": "The mime type of this content"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{access_token}}",
+										"enabled": true
+									},
+									{
+										"key": "z-tx-id",
+										"value": "1234567890",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"name": "Cache-Control",
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"name": "Content-Encoding",
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"description": "The type of encoding used on the data."
+								},
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Thu, 08 Sep 2016 19:58:35 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Expires",
+									"key": "Expires",
+									"value": "0",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"name": "Pragma",
+									"key": "Pragma",
+									"value": "no-cache",
+									"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)",
+									"description": "A name for the server"
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"name": "Vary",
+									"key": "Vary",
+									"value": "Accept-Encoding, User-Agent",
+									"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+								},
+								{
+									"name": "X-Application-Context",
+									"key": "X-Application-Context",
+									"value": "account-services:test-api:8082",
+									"description": "Custom header"
+								},
+								{
+									"name": "X-Content-Type-Options",
+									"key": "X-Content-Type-Options",
+									"value": "nosniff",
+									"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+								},
+								{
+									"name": "X-Frame-Options",
+									"key": "X-Frame-Options",
+									"value": "DENY",
+									"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+								},
+								{
+									"name": "X-XSS-Protection",
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block",
+									"description": "Cross-site scripting (XSS) filter"
+								}
+							],
+							"cookie": [],
+							"responseTime": 291,
+							"body": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}"
+						}
+					]
+				},
+				{
+					"name": "unregisterIn -  SubscriptionServices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://prd-b-subssvcs-use1.zonoff.com:443/accounts/c3c16807-cd8a-4392-92ed-339554c3f5d2",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer GIVEMETOKEN",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"3f9ec117-84f0-4aa8-848a-21e1f9685bef\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[\"permit:update\",\"alexa-svcs:private-access\",\"product:update\",\"subscription-svcs:private-access\",\"account-asset.topic:publish\",\"account-details:update\",\"asset:update\",\"asset-svcs:private-access\",\"account-master:reassign\",\"account-user.preferences:update\",\"account-user:list\",\"video-svcs:private-access\",\"account-asset.command:send\",\"monitoring-svcs:private-access\",\"account-svcs:private-access\",\"user.password:update\"],\"accounts\":[]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "manually-issued",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"assetUuid\" : null\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "200 - api/oauth/token - local copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody) ;\n\nif (tests[\"Status code is 200\"]) {\n    \n    tests[\"access_token is returned\"] = data.access_token !== \"\";\n    \n    \n    tests[\"refresh_token is returned\"] = data.refresh_token !== \"\";\n    \n    }\n\npostman.setEnvironmentVariable(\"access_token\", data.access_token);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/oauth/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-orion-device-secret",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YmI0YzRlMDAtZDhhNi0xMWU0LWE5NmMtMzRmYjUwOWMyMGNiOg==",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "QA+znd10@zonoff.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "Testing123",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - serviceContext For USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://prd-b-acctsvcs-use1.zonoff.com:443/serviceContext",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "1234567890",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"name": "serviceContextForUser",
+							"originalRequest": {
+								"url": "http://localhost:8082/serviceContext",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"enabled": true,
+										"description": "The mime type of this content"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{access_token}}",
+										"enabled": true
+									},
+									{
+										"key": "z-tx-id",
+										"value": "1234567890",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"name": "Cache-Control",
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"name": "Content-Encoding",
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"description": "The type of encoding used on the data."
+								},
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Thu, 08 Sep 2016 19:58:35 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Expires",
+									"key": "Expires",
+									"value": "0",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"name": "Pragma",
+									"key": "Pragma",
+									"value": "no-cache",
+									"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)",
+									"description": "A name for the server"
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"name": "Vary",
+									"key": "Vary",
+									"value": "Accept-Encoding, User-Agent",
+									"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+								},
+								{
+									"name": "X-Application-Context",
+									"key": "X-Application-Context",
+									"value": "account-services:test-api:8082",
+									"description": "Custom header"
+								},
+								{
+									"name": "X-Content-Type-Options",
+									"key": "X-Content-Type-Options",
+									"value": "nosniff",
+									"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+								},
+								{
+									"name": "X-Frame-Options",
+									"key": "X-Frame-Options",
+									"value": "DENY",
+									"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+								},
+								{
+									"name": "X-XSS-Protection",
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block",
+									"description": "Cross-site scripting (XSS) filter"
+								}
+							],
+							"cookie": [],
+							"responseTime": 291,
+							"body": "{\"userUuid\":\"7c791324-c48d-4340-9273-98900c71c0b2\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c88c0816-f3ad-4409-8088-d032bbdd6945\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}"
+						}
+					]
+				},
+				{
+					"name": "unregisterIn -  VideoServices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://prd-b-vidssvcs-use1.zonoff.com:443/account/c3c16807-cd8a-4392-92ed-339554c3f5d2/cameras",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer ac6b2a37-9b16-48a9-a074-a88852dc105f",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"3c30b8c5-db11-4d8b-9eed-11f71b37bc46\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c3c16807-cd8a-4392-92ed-339554c3f5d2\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "manually-issued",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "unregisterIn -  Account Services",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//wilson skariah\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\nif (responseCode.code ===200)\n{\ntest(responseBody); \n}\nfunction findElement(arr, propValue) {\n    for (var i=0; i < arr.length; i++)\n   if (arr[i].name== propValue)\n    return arr[i];\n}\nfunction test(responseBody){\n    tests[\"ratePlanId is displayed in responsebody\"] = responseBody.has(\"ratePlanId\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"description is displayed in responsebody\"] = responseBody.has(\"description\");\n    tests[\"name is displayed in responsebody\"] = responseBody.has(\"name\");\n    tests[\"isPromotionalOffer is displayed in responsebody\"] = responseBody.has(\"false\");\n    tests[\"currency is displayed in responsebody\"] = responseBody.has(\"currency\");\n    tests[\"price is displayed in responsebody\"] = responseBody.has(\"price\");\n    tests[\"products is displayed in responsebody\"] = responseBody.has(\"products\");\n    //tests[\"rateplans changed accordingly\"]\n  \n    var data = JSON.parse(responseBody);\n    //tests[\"ratePlanId for security Monitoring +7 days video is returned\"] = data.ratePlanId !== \"2c92c0f94e71a3b2014e8fca087b677c\";\n    //tests[\"name is Security Monitoring + 7-Day Video\"] = data.name !== \" Security Monitoring + 7-Day Video\";\n    //tests[\"mac is not blank\"] = data.mac !== \" \";\n    \n    var T1=findElement(data, \"Security Monitoring + 7-Day Video\");\n    postman.setEnvironmentVariable (\"ratePlan7day\", T1.ratePlan7day);\n    \n    var T2=findElement(data, \"Security Monitoring + 7-Day Video (2 Months Free)\");\n    postman.setEnvironmentVariable (\"rateplan7day2mon\", T2.rateplan7day2mon); \n \n    var T3=findElement(data, \"Security Monitoring + 30-Day Video\");\n    postman.setEnvironmentVariable (\"rateplan30day\", T3.rateplan30day);\n    \n    var T4=findElement(data, \"30-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan30daystorage\", T4.rateplan30daystorage);\n    \n    var T5=findElement(data, \"7-day Video Storage\");\n    postman.setEnvironmentVariable (\"rateplan7daystorage\", T5.rateplan7daystorage);\n    \n    //var T6=findElement(data, \"Security Monitoring + 30-Day Video Discontinue Use\");\n    //postman.setEnvironmentVariable (\"rateplan30videoDiscontinueuse\", T6.rateplan30videoDiscontinueuse);\n\n \n}"
+							}
+						}
+					],
+					"request": {
+						"url": "https://prd-b-acctsvcs-use1.zonoff.com:443/accounts/c3c16807-cd8a-4392-92ed-339554c3f5d2/asset/e1a624b6-c66a-4cac-9acf-f452d427a64c",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer ac6b2a37-9b16-48a9-a074-a88852dc105f",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"3c30b8c5-db11-4d8b-9eed-11f71b37bc46\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[],\"accounts\":[{\"uuid\":\"c3c16807-cd8a-4392-92ed-339554c3f5d2\",\"perms\":[\"permit:update\",\"account-master:reassign:my-account\",\"account-details:update\",\"asset:register:my-account\",\"security-panel:disarm\",\"account-user.notification-pref:update:my-account\",\"security-panel:arm\",\"permit:update:my-account\",\"hub:connect:my-account\",\"account-user.role:update:my-account\",\"account.name:update:my-account\",\"account.zipcode:update:my-account\",\"impersonation:approve:my-account\",\"permit:read:my-account\",\"account-asset:delete:my-account\",\"permit:read\",\"account-user:add:my-account\",\"subscription:manage:my-account\"]}]}",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "manually-issued",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
