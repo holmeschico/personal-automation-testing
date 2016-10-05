@@ -1054,6 +1054,123 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "userSearch local only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/users/search",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 45aba652-c079-11e5-95cd-127ba7eaa97b",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"3f9ec117-84f0-4aa8-848a-21e1f9685bef\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[\"permit:update\",\"alexa-svcs:private-access\",\"product:update\",\"subscription-svcs:private-access\",\"account-asset.topic:publish\",\"account-details:update\",\"asset:update\",\"asset-svcs:private-access\",\"account-master:reassign\",\"account-user:list\",\"video-svcs:private-access\",\"account-asset.command:send\",\"monitoring-svcs:private-access\",\"account-svcs:private-access\",\"user.password:update\"],\"accounts\":[]}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"term\":\"test-first-name2\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "userRegister local only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 201\"] = responseCode.code === 201;\n\nif(responseBody !== null || responseBody.length > 0){\n        tests[\"Response body is empty\"] = true;  \n}\nelse{\n        tests[\"Response body is empty\"] = false;   \n}\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var d = new Date();\nvar time = d.getTime();\n\nvar email = \"cholmes+\" + time + \"@zonoff.com\";\npostman.setEnvironmentVariable(\"emailaddress_forUserCreation\", email);\n\nvar password = \"Zonoff123\";\npostman.setEnvironmentVariable(\"user_password\", password);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8082/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Zauth-Request-Extra",
+								"value": "{{device_secret}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 45aba652-c079-11e5-95cd-127ba7eaa97b",
+								"description": ""
+							},
+							{
+								"key": "z-tx-id",
+								"value": "z-tx-id",
+								"description": ""
+							},
+							{
+								"key": "z-svc-ctx",
+								"value": "{\"userUuid\":\"3f9ec117-84f0-4aa8-848a-21e1f9685bef\",\"pgmId\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\",\"perms\":[\"permit:update\",\"alexa-svcs:private-access\",\"product:update\",\"subscription-svcs:private-access\",\"account-asset.topic:publish\",\"account-details:update\",\"asset:update\",\"asset-svcs:private-access\",\"account-master:reassign\",\"account-user:list\",\"video-svcs:private-access\",\"account-asset.command:send\",\"monitoring-svcs:private-access\",\"account-svcs:private-access\",\"user.password:update\"],\"accounts\":[]}",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"email\":\"{{emailaddress_forUserCreation}}\"\n    , \"firstName\":\"will\"\n    , \"lastName\":\"skariah\"\n    , \"password\":\"Zonoff123\"\n    , \"client_id\":\"8501e4cb-cfac-441f-a4d5-288cc8e4b38d\"\n    , \"userBucketUuid\":\"78df367f-58df-4ef4-81ca-fb9d6335a866\"\n    , \"marketingEmailOptOutPref\":\"true\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
